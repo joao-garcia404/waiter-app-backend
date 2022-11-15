@@ -10,6 +10,11 @@ import { listProductsByCategory } from './app/useCases/categories/listProductsBy
 import { listProducts } from './app/useCases/products/listProducts';
 import { createProduct } from './app/useCases/products/createProducts';
 
+import { listOrders } from './app/useCases/orders/listOrders';
+import { createOrder } from './app/useCases/orders/createOrder';
+import { changeOrderStatus } from './app/useCases/orders/changeOrderStatus';
+import { deleteOrder } from './app/useCases/orders/deleteOrder';
+
 export const router = Router();
 
 const upload = multer({
@@ -36,14 +41,10 @@ router.post('/products', upload.single('image'), createProduct);
 router.get('/categories/:categoryId/products', listProductsByCategory);
 
 // ORDERS
-router.post('/orders', (request, response) => {
-  response.send('Ok');
-});
+router.get('/orders', listOrders);
 
-router.patch('/orders/:orderId', (request, response) => {
-  response.send('Ok');
-});
+router.post('/orders', createOrder);
 
-router.delete('/orders/:orderId', (request, response) => {
-  response.send('Ok');
-});
+router.patch('/orders/:orderId', changeOrderStatus);
+
+router.delete('/orders/:orderId', deleteOrder);
